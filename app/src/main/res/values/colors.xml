@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="color_primary">#0070C0</color>
+
+    <color name="level_available">#2E80D2</color>
+    <color name="level_selected">#4D93D9</color>
+    <color name="level_locked">#ADADAD</color>
+</resources>

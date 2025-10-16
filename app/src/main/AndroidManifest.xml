@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/fiszki_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/fiszki_logo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+        tools:targetApi="31">
+
+        <!-- Splash Screen - СТАРТОВАЯ -->
+        <activity
+            android:name=".splash_screen_activity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Остальные активности -->
+        <activity android:name=".login_activity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".registration_activity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".reset_password_activity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".setting_activity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+    </application>
+
+</manifest>

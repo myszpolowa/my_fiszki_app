@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">my_fiszki_app</string>
+
+    <string name="settings_title">settings</string>
+    <string name="change_username">change username</string>
+    <string name="change_password">change password</string>
+    <string name="new_username">new username</string>
+    <string name="new_password">new password</string>
+    <string name="save_username">save Username</string>
+    <string name="save_password">save Password</string>
+</resources>
