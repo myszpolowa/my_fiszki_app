@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(java:*)",
+      "Bash(./gradlew:*)",
+      "Read(//c/Program Files/**)",
+      "Bash(choco list:*)",
+      "Bash(choco install:*)",
+      "Read(//c/Users/**)",
+      "Bash(echo:*)",
+      "Bash(export JAVA_HOME=\"/c/Users/szymo/AppData/Local/Programs/Android Studio/jbr\")",
+      "Bash(export ANDROID_HOME=\"/c/Users/szymo/AppData/Local/Android/Sdk\")",
+      "Bash(export PATH=\"$JAVA_HOME/bin:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH\")",
+      "Bash(export PATH=\"$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH\")",
+      "Bash(adb devices:*)",
+      "Bash(adb:*)",
+      "Bash(export PATH=\"$ANDROID_HOME/platform-tools:$PATH\")",
+      "Bash(\"/c/Users/szymo/AppData/Local/Android/Sdk/platform-tools/adb.exe\" -s emulator-5554 logcat -d -s AndroidRuntime:E)",
+      "Bash(export PATH=\"$JAVA_HOME/bin:$ANDROID_HOME/platform-tools:$PATH\")",
+      "Bash(\"/c/Users/szymo/AppData/Local/Android/Sdk/platform-tools/adb.exe\" -s emulator-5554 install -r app/build/outputs/apk/debug/app-debug.apk)",
+      "Bash(\"/c/Users/szymo/AppData/Local/Android/Sdk/platform-tools/adb.exe\" -s emulator-5554 shell am start -n com.example.my_fiszki_app/.splash_screen_activity)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
