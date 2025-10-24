@@ -8,52 +8,59 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class reset_password_activity extends AppCompatActivity {
-    private EditText editTextCode, editTextNewPassword, editTextConfirmPassword;
+    private EditText editTextCode, editTextUserLogin, editTextNewPassword, editTextConfirmPassword;
     private Button buttonReset;
+    private user_database_helper db_helper;
+    private String generatedCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
 
-        // initializing elements - using  IDs from XML
+        db_helper  = new user_database_helper(this);
+
         EditText editTextCode = findViewById(R.id.editTextCode);
+        EditText editTextUserLogin = findViewById(R.id.editTextUserLogin);
         EditText editTextNewPassword = findViewById(R.id.editTextNewPassword);
         EditText editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         Button buttonReset = findViewById(R.id.buttonReset);
 
-        // checking that the elements are found
-        if (editTextCode == null) {
-            Toast.makeText(this, "editTextCode not found! Check XML", Toast.LENGTH_LONG).show();
-        }
-        if (editTextNewPassword == null) {
-            Toast.makeText(this, "editTextNewPassword not found! Check XML", Toast.LENGTH_LONG).show();
-        }
-        if (editTextConfirmPassword == null) {
-            Toast.makeText(this, "editTextConfirmPassword not found! Check XML", Toast.LENGTH_LONG).show();
-        }
-        if (buttonReset == null) {
-            Toast.makeText(this, "buttonReset not found! Check XML", Toast.LENGTH_LONG).show();
-        } else {
-            buttonReset.setOnClickListener(v -> resetPassword());
-        }
+        buttonReset.setOnClickListener(v -> {
+            resetPassword();
+        });
+
+        generatedCode = "1111";
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        db_helper.open();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        db_helper.close();
     }
 
     private void resetPassword() {
         EditText editTextCode = findViewById(R.id.editTextCode);
+        EditText editTextUserLogin = findViewById(R.id.editTextUserLogin);
         EditText editTextNewPassword = findViewById(R.id.editTextNewPassword);
         EditText editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
 
-        if (editTextCode == null || editTextNewPassword == null || editTextConfirmPassword == null) {
-            Toast.makeText(this, "Error: UI elements not found", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         String code = editTextCode.getText().toString();
+        String username = editTextUserLogin.getText().toString();
         String newPassword = editTextNewPassword.getText().toString();
         String confirmPassword = editTextConfirmPassword.getText().toString();
 
-        // checking code
+        if (!db_helper.checkUserExists(username)) {
+            editTextUserLogin.setError("User not found");
+            editTextUserLogin.requestFocus();
+            return;
+        }
+
         if (!code.equals("1111")) {
             editTextCode.setError("Invalid code. Use 1111");
             Toast.makeText(this, "Use code: 1111", Toast.LENGTH_SHORT).show();
@@ -74,6 +81,7 @@ public class reset_password_activity extends AppCompatActivity {
             editTextConfirmPassword.setError("Passwords don't match");
             return;
         }
+        boolean success = db_helper.resetPassword(username, newPassword);
 
         Toast.makeText(this, "Password reset successfully!", Toast.LENGTH_SHORT).show();
 

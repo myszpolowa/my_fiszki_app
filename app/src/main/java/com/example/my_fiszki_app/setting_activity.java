@@ -31,10 +31,12 @@ public class setting_activity extends AppCompatActivity {
 
     private void changeUsername() {
         String newUsername = editTextChangeUsername.getText().toString();
+        Intent intent = new Intent(this, home_activity.class);
         if (newUsername.isEmpty()) {
             editTextChangeUsername.setError("Enter new username");
             return;
         }
+        intent.putExtra("LOGIN", newUsername);
         Toast.makeText(this, "Username changed to: " + newUsername, Toast.LENGTH_SHORT).show();
         editTextChangeUsername.setText("");
     }

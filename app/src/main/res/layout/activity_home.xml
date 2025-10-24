@@ -1,19 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@android:color/white"
     android:padding="24dp">
 
-    <ImageButton
-        android:id="@+id/buttonSetting"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:background="@android:color/transparent"
-        android:padding="16dp"
-        android:src="@drawable/icon_setting"
-        android:layout_gravity="right"/>
-</LinearLayout>
+        android:orientation="vertical">
 
+        <ImageButton
+            android:id="@+id/buttonSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/transparent"
+            android:padding="16dp"
+            android:src="@drawable/icon_setting"
+            android:layout_gravity="right"/>
+
+        <TextView
+            android:id="@+id/textViewGreeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hi!"
+            android:textSize="35sp"
+            android:padding="16dp"
+            android:textColor="@android:color/black"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+
+        <Button
+            android:id="@+id/buttonLevel1"
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/level_button_unlocked"
+            android:text="Level 1"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"/>
+
+        <Button
+            android:id="@+id/buttonLevel2"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/level_button_locked"
+            android:text="Level 2"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"/>
+
+        <Button
+            android:id="@+id/buttonLevel3"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/level_button_locked"
+            android:text="Level 3"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"/>
+
+        <Button
+            android:id="@+id/buttonLevel4"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/level_button_locked"
+            android:text="Level 4"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"/>
+
+        <Button
+            android:id="@+id/buttonLevel5"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/level_button_locked"
+            android:text="Level 5"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"/>
+
+
+    </LinearLayout>
+</ScrollView>
