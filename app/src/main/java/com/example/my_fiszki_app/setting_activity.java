@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class setting_activity extends AppCompatActivity {
     private EditText editTextChangeUsername, editTextChangePassword;
     private Button buttonSaveUsername, buttonSavePassword;
-    private ImageButton buttonBack;
+    private ImageButton buttonBackHome;
 
     private user_database_helper dbHelper;
     private String currentUsername;
@@ -25,7 +25,7 @@ public class setting_activity extends AppCompatActivity {
         editTextChangePassword = findViewById(R.id.editTextChangePassword);
         buttonSaveUsername = findViewById(R.id.buttonSaveUsername);
         buttonSavePassword = findViewById(R.id.buttonSavePassword);
-        buttonBack = findViewById(R.id.buttonBack);
+        buttonBackHome = findViewById(R.id.buttonBackHome);
 
         dbHelper = new user_database_helper(this);
         dbHelper.open();
@@ -34,7 +34,7 @@ public class setting_activity extends AppCompatActivity {
 
         buttonSaveUsername.setOnClickListener(v -> changeUsername());
         buttonSavePassword.setOnClickListener(v -> changePassword());
-        buttonBack.setOnClickListener(v -> goBackToHome());
+        buttonBackHome.setOnClickListener(v -> goBackToHome());
     }
 
     @Override

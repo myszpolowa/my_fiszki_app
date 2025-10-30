@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 public class registration_activity extends AppCompatActivity {
     private EditText editTextNewUsername, editTextNewPassword, editTextConfirmPassword;
     private Button buttonRegister;
+    private ImageButton buttonBackLogin;
     private user_database_helper db_helper;
 
     @Override
@@ -22,8 +24,10 @@ public class registration_activity extends AppCompatActivity {
         editTextNewPassword = findViewById(R.id.editTextNewPassword);
         editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         buttonRegister = findViewById(R.id.buttonRegister);
+        buttonBackLogin = findViewById(R.id.buttonBackLoginR);
 
         buttonRegister.setOnClickListener(v -> registerUser());
+
     }
     @Override
     protected void onStart() {
@@ -70,6 +74,11 @@ public class registration_activity extends AppCompatActivity {
         }
 
         db_helper.registerUser(username, password, progress);
+        startActivity(new Intent(this, login_activity.class));
+        finish();
+    }
+
+    private void goBackToLogin() {
         startActivity(new Intent(this, login_activity.class));
         finish();
     }
