@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class registration_activity extends AppCompatActivity {
     private EditText editTextNewUsername, editTextNewPassword, editTextConfirmPassword;
     private Button buttonRegister;
-    private ImageButton buttonBackLogin;
+    private ImageButton buttonBackLoginR;
     private user_database_helper db_helper;
 
     @Override
@@ -24,9 +24,10 @@ public class registration_activity extends AppCompatActivity {
         editTextNewPassword = findViewById(R.id.editTextNewPassword);
         editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         buttonRegister = findViewById(R.id.buttonRegister);
-        buttonBackLogin = findViewById(R.id.buttonBackLoginR);
+        buttonBackLoginR = findViewById(R.id.buttonBackLoginR);
 
         buttonRegister.setOnClickListener(v -> registerUser());
+        buttonBackLoginR.setOnClickListener(v -> goBackToLogin());
 
     }
     @Override
@@ -73,9 +74,15 @@ public class registration_activity extends AppCompatActivity {
             return;
         }
 
-        db_helper.registerUser(username, password, progress);
-        startActivity(new Intent(this, login_activity.class));
-        finish();
+        boolean success = db_helper.registerUser(username, password, progress);
+
+        if (success) {
+            Toast.makeText(this, "User registered successfully!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, login_activity.class));
+            finish();
+        } else {
+            Toast.makeText(this, "Error user registration", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void goBackToLogin() {

@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class reset_password_activity extends AppCompatActivity {
     private EditText editTextCode, editTextUserLogin, editTextNewPassword, editTextConfirmPassword;
     private Button buttonReset;
-    private ImageButton buttonBackLogin;
+    private ImageButton buttonBackLoginRP;
     private user_database_helper db_helper;
     private String generatedCode;
 
@@ -27,13 +27,10 @@ public class reset_password_activity extends AppCompatActivity {
         editTextNewPassword = findViewById(R.id.editTextNewPassword);
         editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         buttonReset = findViewById(R.id.buttonReset);
-        buttonBackLogin = findViewById(R.id.buttonBackLoginRP);
+        buttonBackLoginRP = findViewById(R.id.buttonBackLoginRP);
 
-        buttonReset.setOnClickListener(v -> {
-            resetPassword();
-        });
-
-        buttonBackLogin.setOnClickListener(v -> goBackToLogin());
+        buttonReset.setOnClickListener(v -> {resetPassword();});
+        buttonBackLoginRP.setOnClickListener(v -> goBackToLogin());
 
         generatedCode = "1111";
     }
