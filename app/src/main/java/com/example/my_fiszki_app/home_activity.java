@@ -35,7 +35,9 @@ public class home_activity extends AppCompatActivity {
     }
 
     private void goBackToSetting() {
-        startActivity(new Intent(this, setting_activity.class));
+        Intent intent = new Intent(this, setting_activity.class);
+        intent.putExtra("LOGIN", getIntent().getStringExtra("LOGIN")); // передаём текущий логин
+        startActivity(intent);
         finish();
     }
 

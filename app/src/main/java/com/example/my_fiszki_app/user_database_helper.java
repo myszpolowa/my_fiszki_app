@@ -5,8 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 public class user_database_helper {
-        private database_helper db_helper;
-        private SQLiteDatabase database;
+    private database_helper db_helper;
+    private SQLiteDatabase database;
     private String username;
     private String password;
     private Integer progress;
@@ -78,7 +78,7 @@ public class user_database_helper {
                         cursor.getInt(cursor.getColumnIndexOrThrow("user_id")),
                         cursor.getString(cursor.getColumnIndexOrThrow("login")),
                         cursor.getString(cursor.getColumnIndexOrThrow("password")),
-                        cursor.getString(cursor.getColumnIndexOrThrow("progress"))
+                        cursor.getColumnIndexOrThrow("progress")
                 );
             }
             cursor.close();
@@ -99,11 +99,32 @@ public class user_database_helper {
 
             int rowsAffected = database.update("logins", values, whereClause, whereArgs);
             return rowsAffected > 0;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean updateUsername(String oldUsername, String newUsername) {
+        if (database == null || !database.isOpen()) {
+            return false;
+        }
+
+        try {
+            ContentValues values = new ContentValues();
+            values.put("login", newUsername);
+
+            String whereClause = "login = ?";
+            String[] whereArgs = {oldUsername};
+
+            int rowsAffected = database.update("logins", values, whereClause, whereArgs);
+            return rowsAffected > 0;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+
 
     public boolean registerUser(String username, String password, Integer progress) {
         if (database == null || !database.isOpen()) {
@@ -114,7 +135,7 @@ public class user_database_helper {
             ContentValues values = new ContentValues();
             values.put("login", username);
             values.put("password", password);
-            values.put("0", progress);
+            values.put("progress", progress);
 
             long result = database.insert("logins", null, values);
             return result != -1; // -1 - error
@@ -124,4 +145,5 @@ public class user_database_helper {
             return false;
         }
     }
+
 }

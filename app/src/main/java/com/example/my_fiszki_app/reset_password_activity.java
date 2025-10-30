@@ -81,11 +81,16 @@ public class reset_password_activity extends AppCompatActivity {
             editTextConfirmPassword.setError("Passwords don't match");
             return;
         }
+
         boolean success = db_helper.resetPassword(username, newPassword);
 
-        Toast.makeText(this, "Password reset successfully!", Toast.LENGTH_SHORT).show();
+        if (success) {
+            Toast.makeText(this, "Password reset successfully!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, login_activity.class));
+            finish();
+        } else {
+            Toast.makeText(this, "Error updating password", Toast.LENGTH_SHORT).show();
+        }
 
-        startActivity(new Intent(this, login_activity.class));
-        finish();
     }
 }

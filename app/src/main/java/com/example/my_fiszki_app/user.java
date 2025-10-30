@@ -6,11 +6,11 @@ public class user {
     private String password;
     private int progress;
 
-    public user(int user_id, String login, String password, String progress) {
+    public user(int user_id, String login, String password, Integer progress) {
         this.user_id = user_id;
         this.login = login;
         this.password = password;
-        this.progress = this.progress;
+        this.progress = progress;
     }
 
 
