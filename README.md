@@ -17,7 +17,7 @@
 |-----------|----------|
 | Typ aplikacji | Mobilna (Android) |
 | Minimalna wersja Android | 10 (API 29) |
-| Docelowa wersja Android | 15 (API 36) |
+| Docelowa wersja Android | 16 (API 36) |
 | compileSdk | 36 |
 | Język projektu | Java 11 |
 | Testowano na | Android Emulator (Pixel 6, Android 12) |
