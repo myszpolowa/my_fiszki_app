@@ -78,7 +78,7 @@ public class login_activity extends AppCompatActivity {
 
         if (user != null) {
             intent.putExtra("LOGIN", user.get_login());
-            intent.putExtra("PROGRES", user.get_progres());
+            intent.putExtra("PROGRES", user.get_progress());
         }
 
         startActivity(intent);

@@ -17,6 +17,8 @@ public class user {
     public int get_user_id() { return user_id; }
     public  String get_login() { return login; }
     public String get_password() { return password; }
-    public int get_progres() { return progress; }
+    public int get_progress() { return progress; }
 }
+
+
 
