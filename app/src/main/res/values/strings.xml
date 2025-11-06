@@ -8,4 +8,9 @@
     <string name="new_password">new password</string>
     <string name="save_username">save Username</string>
     <string name="save_password">save Password</string>
+    <string name="back">Back</string>
+    <string name="try_again">Try again</string>
+    <string name="main_menu">Main menu</string>
+    <string name="level_complete_title">LEVEL COMPLETE!</string>
+    <string name="correct_format">%1$d / %2$d</string>
 </resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- pressed state (fallback) -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/button_blue_dark" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+
+    <!-- default state -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/button_blue" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+</selector>
