@@ -7,11 +7,29 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+import android.graphics.Color;
+
 public class registration_activity extends AppCompatActivity {
     private EditText editTextNewUsername, editTextNewPassword, editTextConfirmPassword;
+    private View passwordStrengthBar;
+    private TextView passwordStrengthText;
     private Button buttonRegister;
+<<<<<<< HEAD
     private ImageButton buttonBackLoginR;
     private user_database_helper db_helper;
+=======
+    private TextView textViewPasswordError;
+
+    private boolean isValidPassword(String password) {
+
+        return password != null && password.matches("(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{8,}");
+    }
+>>>>>>> DS
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +44,12 @@ public class registration_activity extends AppCompatActivity {
         buttonRegister = findViewById(R.id.buttonRegister);
         buttonBackLoginR = findViewById(R.id.buttonBackLoginR);
 
+        // strength UI user interface
+        passwordStrengthBar = findViewById(R.id.passwordStrengthBar);
+        passwordStrengthText = findViewById(R.id.passwordStrengthText);
+
         buttonRegister.setOnClickListener(v -> registerUser());
+<<<<<<< HEAD
         buttonBackLoginR.setOnClickListener(v -> goBackToLogin());
 
     }
@@ -34,6 +57,40 @@ public class registration_activity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         db_helper.open();
+=======
+
+        textViewPasswordError = findViewById(R.id.textViewPasswordError);
+
+        editTextNewPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String pwd = s == null ? "" : s.toString();
+
+                // update strength bar live
+                updatePasswordStrength(pwd);
+
+                // show/hide textual policy hint
+                if (isValidPassword(pwd)) {
+                    if (textViewPasswordError != null)
+                        textViewPasswordError.setVisibility(View.GONE);
+                    if (editTextNewPassword != null) editTextNewPassword.setError(null);
+                } else {
+                    if (textViewPasswordError != null) {
+                        textViewPasswordError.setVisibility(View.VISIBLE);
+                        textViewPasswordError.setText("The password must have ≥8 characters, 1 uppercase letter and 1 special characters");
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+>>>>>>> DS
     }
 
     @Override
@@ -68,6 +125,7 @@ public class registration_activity extends AppCompatActivity {
             return;
         }
 
+<<<<<<< HEAD
         if (db_helper.checkUserExists(username)) {
             editTextNewUsername.setError("User with that username already exists");
             editTextNewUsername.requestFocus();
@@ -86,7 +144,56 @@ public class registration_activity extends AppCompatActivity {
     }
 
     private void goBackToLogin() {
+=======
+        if (!isValidPassword(password)) {
+            editTextNewPassword.setError("The password must be at least 8 characters long, one uppercase letter and one special character");
+            if (textViewPasswordError != null) {
+                textViewPasswordError.setVisibility(View.VISIBLE);
+                textViewPasswordError.setText("The password must have ≥8 characters, 1 uppercase letter and 1 special character");
+            }
+            return;
+        }
+
+        // temporal logic - always successful registration
+>>>>>>> DS
         startActivity(new Intent(this, login_activity.class));
         finish();
+    }
+
+    private void updatePasswordStrength(String password) {
+        if (password == null || password.isEmpty()) {
+            if (passwordStrengthBar != null) passwordStrengthBar.setVisibility(View.GONE);
+            if (passwordStrengthText != null) passwordStrengthText.setVisibility(View.GONE);
+            return;
+        }
+
+        int score = 0;
+        if (password.length() >= 8) score++;
+        if (password.matches(".*[A-Z].*")) score++;
+        if (password.matches(".*[^A-Za-z0-9].*")) score++;
+
+        int color;
+        String label;
+        if (score == 3 && password.length() >= 12) {
+            color = Color.parseColor("#4CAF50"); // green
+            label = "Strong";
+        } else if (score >= 2) {
+            color = Color.parseColor("#FFEB3B"); // yellow
+            label = "Medium";
+        } else {
+            color = Color.parseColor("#F44336"); // red
+            label = "Weak";
+        }
+
+        // guard nulls
+        if (passwordStrengthBar != null) {
+            passwordStrengthBar.setVisibility(View.VISIBLE);
+            passwordStrengthBar.setBackgroundColor(color);
+        }
+        if (passwordStrengthText != null) {
+            passwordStrengthText.setVisibility(View.VISIBLE);
+            passwordStrengthText.setText(label);
+            passwordStrengthText.setTextColor(color);
+        }
     }
 }

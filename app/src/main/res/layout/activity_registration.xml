@@ -85,6 +85,49 @@
         android:paddingEnd="16dp"
         android:textSize="16sp" />
 
+
+    <LinearLayout
+        android:id="@+id/passwordStrengthContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingTop="12dp">
+
+
+        <View
+            android:id="@+id/passwordStrengthBar"
+            android:layout_width="200dp"
+            android:layout_height="6dp"
+            android:background="#F44336"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
+
+
+
+        <TextView
+            android:id="@+id/passwordStrengthText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weak"
+            android:textColor="#F44336"
+            android:layout_marginTop="6dp"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
+
+
+        <TextView
+            android:id="@+id/textViewPasswordError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password must be at least 8 chars, include 1 uppercase and 1 special character"
+            android:textColor="#F44336"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+
     <Button
         android:id="@+id/buttonRegister"
         android:layout_width="match_parent"
