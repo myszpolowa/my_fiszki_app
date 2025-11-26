@@ -44,17 +44,32 @@
         android:textColor="@android:color/black"
         android:layout_marginBottom="8dp" />
 
-    <EditText
-        android:id="@+id/editTextPassword"
+    <!-- Pole hasła z ikoną oka -->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Type your password"
-        android:inputType="textPassword"
-        android:background="@drawable/background_for_input_field"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:textSize="16sp"
-        android:layout_marginBottom="3dp" />
+        android:layout_marginBottom="3dp">
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Type your password"
+            android:inputType="textPassword"
+            android:background="@drawable/background_for_input_field"
+            android:paddingStart="16dp"
+            android:paddingEnd="48dp"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/buttonTogglePassword"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_eye" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/textViewReset"
@@ -88,7 +103,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Don’t have an account? ? "
+            android:text="Don’t have an account? "
             android:textColor="@android:color/black"
             android:textSize="14sp" />
 

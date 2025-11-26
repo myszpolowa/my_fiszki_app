@@ -2,8 +2,10 @@ package com.example.my_fiszki_app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,7 @@ public class login_activity extends AppCompatActivity {
     private EditText editTextUsername, editTextPassword;
     private Button buttonLogin;
     private TextView textViewRegister, textViewReset;
+    private ImageButton buttonTogglePassword;
     private user_database_helper userDbHelper;
 
     @Override
@@ -26,11 +29,24 @@ public class login_activity extends AppCompatActivity {
         buttonLogin = findViewById(R.id.buttonLogin);
         textViewRegister = findViewById(R.id.textViewRegister);
         textViewReset = findViewById(R.id.textViewReset);
+        buttonTogglePassword = findViewById(R.id.buttonTogglePassword);
 
-        buttonLogin.setOnClickListener(v -> {loginUser();});
+        buttonLogin.setOnClickListener(v -> loginUser());
 
         textViewRegister.setOnClickListener(v -> startActivity(new Intent(this, registration_activity.class)));
         textViewReset.setOnClickListener(v -> startActivity(new Intent(this, reset_password_activity.class)));
+
+        // Toggle password visibility
+        buttonTogglePassword.setOnClickListener(v -> {
+            if (editTextPassword.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
+                // Pokaż hasło
+                editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            } else {
+                // Ukryj hasło
+                editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            }
+            editTextPassword.setSelection(editTextPassword.getText().length());
+        });
     }
 
     @Override
@@ -75,7 +91,6 @@ public class login_activity extends AppCompatActivity {
         user user = userDbHelper.getUser(login);
 
         Intent intent = new Intent(this, home_activity.class);
-
         if (user != null) {
             intent.putExtra("LOGIN", user.get_login());
             intent.putExtra("PROGRES", user.get_progress());

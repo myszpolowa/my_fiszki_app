@@ -5,31 +5,25 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
+import android.view.View;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
-import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class registration_activity extends AppCompatActivity {
     private EditText editTextNewUsername, editTextNewPassword, editTextConfirmPassword;
     private View passwordStrengthBar;
-    private TextView passwordStrengthText;
+    private TextView passwordStrengthText, textViewPasswordError;
     private Button buttonRegister;
-<<<<<<< HEAD
     private ImageButton buttonBackLoginR;
     private user_database_helper db_helper;
-=======
-    private TextView textViewPasswordError;
 
     private boolean isValidPassword(String password) {
-
         return password != null && password.matches("(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{8,}");
     }
->>>>>>> DS
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,53 +38,38 @@ public class registration_activity extends AppCompatActivity {
         buttonRegister = findViewById(R.id.buttonRegister);
         buttonBackLoginR = findViewById(R.id.buttonBackLoginR);
 
-        // strength UI user interface
         passwordStrengthBar = findViewById(R.id.passwordStrengthBar);
         passwordStrengthText = findViewById(R.id.passwordStrengthText);
+        textViewPasswordError = findViewById(R.id.textViewPasswordError);
 
         buttonRegister.setOnClickListener(v -> registerUser());
-<<<<<<< HEAD
         buttonBackLoginR.setOnClickListener(v -> goBackToLogin());
 
+        editTextNewPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String pwd = s == null ? "" : s.toString();
+                updatePasswordStrength(pwd);
+
+                if (isValidPassword(pwd)) {
+                    textViewPasswordError.setVisibility(View.GONE);
+                    editTextNewPassword.setError(null);
+                } else {
+                    textViewPasswordError.setVisibility(View.VISIBLE);
+                    textViewPasswordError.setText("The password must have ≥8 characters, 1 uppercase letter and 1 special character");
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
     }
+
     @Override
     protected void onStart() {
         super.onStart();
         db_helper.open();
-=======
-
-        textViewPasswordError = findViewById(R.id.textViewPasswordError);
-
-        editTextNewPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String pwd = s == null ? "" : s.toString();
-
-                // update strength bar live
-                updatePasswordStrength(pwd);
-
-                // show/hide textual policy hint
-                if (isValidPassword(pwd)) {
-                    if (textViewPasswordError != null)
-                        textViewPasswordError.setVisibility(View.GONE);
-                    if (editTextNewPassword != null) editTextNewPassword.setError(null);
-                } else {
-                    if (textViewPasswordError != null) {
-                        textViewPasswordError.setVisibility(View.VISIBLE);
-                        textViewPasswordError.setText("The password must have ≥8 characters, 1 uppercase letter and 1 special characters");
-                    }
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
->>>>>>> DS
     }
 
     @Override
@@ -98,6 +77,7 @@ public class registration_activity extends AppCompatActivity {
         super.onStop();
         db_helper.close();
     }
+
     private void registerUser() {
         String username = editTextNewUsername.getText().toString();
         String password = editTextNewPassword.getText().toString();
@@ -124,16 +104,19 @@ public class registration_activity extends AppCompatActivity {
             editTextConfirmPassword.requestFocus();
             return;
         }
-
-<<<<<<< HEAD
         if (db_helper.checkUserExists(username)) {
             editTextNewUsername.setError("User with that username already exists");
             editTextNewUsername.requestFocus();
             return;
         }
+        if (!isValidPassword(password)) {
+            editTextNewPassword.setError("The password must be at least 8 characters long, one uppercase letter and one special character");
+            textViewPasswordError.setVisibility(View.VISIBLE);
+            textViewPasswordError.setText("The password must have ≥8 characters, 1 uppercase letter and 1 special character");
+            return;
+        }
 
         boolean success = db_helper.registerUser(username, password, progress);
-
         if (success) {
             Toast.makeText(this, "User registered successfully!", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, login_activity.class));
@@ -144,26 +127,14 @@ public class registration_activity extends AppCompatActivity {
     }
 
     private void goBackToLogin() {
-=======
-        if (!isValidPassword(password)) {
-            editTextNewPassword.setError("The password must be at least 8 characters long, one uppercase letter and one special character");
-            if (textViewPasswordError != null) {
-                textViewPasswordError.setVisibility(View.VISIBLE);
-                textViewPasswordError.setText("The password must have ≥8 characters, 1 uppercase letter and 1 special character");
-            }
-            return;
-        }
-
-        // temporal logic - always successful registration
->>>>>>> DS
         startActivity(new Intent(this, login_activity.class));
         finish();
     }
 
     private void updatePasswordStrength(String password) {
         if (password == null || password.isEmpty()) {
-            if (passwordStrengthBar != null) passwordStrengthBar.setVisibility(View.GONE);
-            if (passwordStrengthText != null) passwordStrengthText.setVisibility(View.GONE);
+            passwordStrengthBar.setVisibility(View.GONE);
+            passwordStrengthText.setVisibility(View.GONE);
             return;
         }
 
@@ -175,25 +146,20 @@ public class registration_activity extends AppCompatActivity {
         int color;
         String label;
         if (score == 3 && password.length() >= 12) {
-            color = Color.parseColor("#4CAF50"); // green
+            color = Color.parseColor("#4CAF50");
             label = "Strong";
         } else if (score >= 2) {
-            color = Color.parseColor("#FFEB3B"); // yellow
+            color = Color.parseColor("#FFEB3B");
             label = "Medium";
         } else {
-            color = Color.parseColor("#F44336"); // red
+            color = Color.parseColor("#F44336");
             label = "Weak";
         }
 
-        // guard nulls
-        if (passwordStrengthBar != null) {
-            passwordStrengthBar.setVisibility(View.VISIBLE);
-            passwordStrengthBar.setBackgroundColor(color);
-        }
-        if (passwordStrengthText != null) {
-            passwordStrengthText.setVisibility(View.VISIBLE);
-            passwordStrengthText.setText(label);
-            passwordStrengthText.setTextColor(color);
-        }
+        passwordStrengthBar.setVisibility(View.VISIBLE);
+        passwordStrengthBar.setBackgroundColor(color);
+        passwordStrengthText.setVisibility(View.VISIBLE);
+        passwordStrengthText.setText(label);
+        passwordStrengthText.setTextColor(color);
     }
 }

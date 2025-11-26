@@ -2,27 +2,15 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
     android:background="@android:color/white"
-=======
-    android:background="@color/white"
     android:orientation="vertical"
->>>>>>> DS
     android:padding="24dp">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
         android:orientation="vertical">
-=======
-        android:layout_gravity="right"
-        android:layout_marginBottom="20dp"
-        android:background="@android:color/transparent"
-        android:padding="16dp"
-        android:src="@drawable/icon_setting" />
-</LinearLayout>
->>>>>>> DS
 
         <ImageButton
             android:id="@+id/buttonSetting"
@@ -105,5 +93,6 @@
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="22sp"/>
+
     </LinearLayout>
 </ScrollView>
