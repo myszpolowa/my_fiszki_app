@@ -9,13 +9,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class home_activity extends AppCompatActivity {
 
     private ImageButton buttonSetting;
-    private Button buttonLevel1,buttonLevel2,buttonLevel3,buttonLevel4,buttonLevel5;
-
+    private Button buttonLevel1, buttonLevel2, buttonLevel3, buttonLevel4, buttonLevel5;
     private TextView textViewGreeting;
 
     @Override
@@ -23,6 +21,7 @@ public class home_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        // Tworzenie bazy danych
         database_helper dbHelper = new database_helper(this);
         try {
             dbHelper.createDataBase();
@@ -30,8 +29,8 @@ public class home_activity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        // Przyciski
         buttonSetting = findViewById(R.id.buttonSetting);
-
         buttonLevel1 = findViewById(R.id.buttonLevel1);
         buttonLevel2 = findViewById(R.id.buttonLevel2);
         buttonLevel3 = findViewById(R.id.buttonLevel3);
@@ -40,38 +39,41 @@ public class home_activity extends AppCompatActivity {
 
         textViewGreeting = findViewById(R.id.textViewGreeting);
 
-        buttonSetting.setOnClickListener(v -> goBackToSetting());
-
+        // Ustawienie powitania
         String login = getIntent().getStringExtra("LOGIN");
         if (login != null) {
-            textViewGreeting.setText("hi, " + login+"!");
+            textViewGreeting.setText("hi, " + login + "!");
         }
 
-        Integer progress = getIntent().getIntExtra("PROGRESS",0);
+        // Wczytanie progressu z SharedPreferences
+        int progress = getSharedPreferences("FISZKI_PREFS", MODE_PRIVATE).getInt("PROGRESS", 0);
+
         Button[] buttons = {buttonLevel1, buttonLevel2, buttonLevel3, buttonLevel4, buttonLevel5};
         for (int i = 0; i < buttons.length; i++) {
-            if (i <= progress) {
-                buttons[i].setEnabled(true); // открытые уровни
-            } else {
-                buttons[i].setEnabled(false); // заблокированные уровни
-            }
+            buttons[i].setEnabled(i <= progress);
         }
-        buttonLevel1.setOnClickListener(v -> goToPlay());
-        buttonLevel2.setOnClickListener(v -> goToPlay());
-        buttonLevel3.setOnClickListener(v -> goToPlay());
-        buttonLevel4.setOnClickListener(v -> goToPlay());
-        buttonLevel5.setOnClickListener(v -> goToPlay());
+
+        // Ustawienie listenerów
+        buttonSetting.setOnClickListener(v -> goBackToSetting());
+
+        buttonLevel1.setOnClickListener(v -> goToPlay(1));
+        buttonLevel2.setOnClickListener(v -> goToPlay(2));
+        buttonLevel3.setOnClickListener(v -> goToPlay(3));
+        buttonLevel4.setOnClickListener(v -> goToPlay(4));
+        buttonLevel5.setOnClickListener(v -> goToPlay(5));
     }
 
     private void goBackToSetting() {
         Intent intent = new Intent(this, setting_activity.class);
-        intent.putExtra("LOGIN", getIntent().getStringExtra("LOGIN")); // передаём текущий логин
+        intent.putExtra("LOGIN", getIntent().getStringExtra("LOGIN"));
         startActivity(intent);
         finish();
     }
 
-    private void goToPlay() {
-        startActivity(new Intent(this, play_activity.class));
+    private void goToPlay(int level) {
+        Intent intent = new Intent(this, PlayActivity.class);
+        intent.putExtra("LEVEL", level); // przekazujemy numer levela
+        startActivity(intent);
         finish();
     }
 }

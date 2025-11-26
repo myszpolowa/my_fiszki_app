@@ -21,12 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".LevelCompleteActivity" />
         <activity android:name=".login_activity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".registration_activity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".reset_password_activity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".home_activity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".play_activity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".PlayActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".setting_activity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
     </application>
