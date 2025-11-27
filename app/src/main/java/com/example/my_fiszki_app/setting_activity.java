@@ -1,7 +1,7 @@
 package com.example.my_fiszki_app;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android. os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -11,25 +11,26 @@ import androidx.appcompat.app.AppCompatActivity;
 public class setting_activity extends AppCompatActivity {
     private EditText editTextChangeUsername, editTextChangePassword;
     private Button buttonSaveUsername, buttonSavePassword;
-    private ImageButton buttonBackHome;
+    private ImageButton buttonBackHome; // Zmieniona nazwa zmiennej
 
     private user_database_helper dbHelper;
     private String currentUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super. onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
         editTextChangeUsername = findViewById(R.id.editTextChangeUsername);
         editTextChangePassword = findViewById(R.id.editTextChangePassword);
         buttonSaveUsername = findViewById(R.id.buttonSaveUsername);
-        buttonSavePassword = findViewById(R.id.buttonSavePassword);
-        buttonBackHome = findViewById(R.id.buttonBackHome);
+        buttonSavePassword = findViewById(R. id.buttonSavePassword);
+        buttonBackHome = findViewById(R.id.buttonBackHome); // Poprawiony ID
 
+        // Inicjalizacja bazy danych
         dbHelper = new user_database_helper(this);
-        dbHelper.open();
 
+        // Pobierz aktualną nazwę użytkownika z Intent
         currentUsername = getIntent().getStringExtra("LOGIN");
 
         buttonSaveUsername.setOnClickListener(v -> changeUsername());
@@ -50,13 +51,18 @@ public class setting_activity extends AppCompatActivity {
     }
 
     private void changeUsername() {
-        String newUsername = editTextChangeUsername.getText().toString().trim();
+        String newUsername = editTextChangeUsername. getText().toString(). trim();
         if (newUsername.isEmpty()) {
             editTextChangeUsername.setError("Enter new username");
             return;
         }
 
-        boolean success = dbHelper.updateUsername(currentUsername, newUsername);
+        if (dbHelper.checkUserExists(newUsername)) {
+            editTextChangeUsername.setError("Username already exists");
+            return;
+        }
+
+        boolean success = dbHelper. updateUsername(currentUsername, newUsername);
         if (success) {
             Toast.makeText(this, "Username changed to: " + newUsername, Toast.LENGTH_SHORT).show();
             currentUsername = newUsername;
@@ -66,25 +72,26 @@ public class setting_activity extends AppCompatActivity {
         }
     }
 
-
     private void changePassword() {
-        String newPassword = editTextChangePassword.getText().toString().trim();
+        String newPassword = editTextChangePassword. getText().toString().trim();
         if (newPassword.isEmpty()) {
             editTextChangePassword.setError("Enter new password");
             return;
         }
 
-        boolean success = dbHelper.resetPassword(currentUsername, newPassword);
+        boolean success = dbHelper. resetPassword(currentUsername, newPassword);
         if (success) {
             Toast.makeText(this, "Password changed successfully!", Toast.LENGTH_SHORT).show();
-            editTextChangePassword.setText("");
+            editTextChangePassword. setText("");
         } else {
             Toast.makeText(this, "Error changing password", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void goBackToHome() {
-        startActivity(new Intent(this, home_activity.class));
+        Intent intent = new Intent(this, home_activity.class);
+        intent.putExtra("LOGIN", currentUsername);
+        startActivity(intent);
         finish();
     }
 }

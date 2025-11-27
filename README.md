@@ -50,3 +50,6 @@ my_fiszki_app/
 └── settings.gradle
 ```
 
+
+
+
