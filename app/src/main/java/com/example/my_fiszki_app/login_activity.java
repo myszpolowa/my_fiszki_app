@@ -41,9 +41,12 @@ public class login_activity extends AppCompatActivity {
             if (editTextPassword.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
                 // Pokaż hasło
                 editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                buttonTogglePassword.setImageResource(R.drawable.ic_eye);
+
             } else {
                 // Ukryj hasło
                 editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                buttonTogglePassword.setImageResource(R.drawable.ic_eye_cl);
             }
             editTextPassword.setSelection(editTextPassword.getText().length());
         });

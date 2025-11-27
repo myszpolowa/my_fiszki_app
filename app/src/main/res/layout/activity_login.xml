@@ -68,7 +68,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_eye" />
+            android:src="@drawable/ic_eye_cl" />
     </RelativeLayout>
 
     <TextView
